@@ -1,6 +1,9 @@
 # mmtreeast-html-tags
 
-![GitHub Actions Workflow Status][npm-build]
+![GitHub Actions Workflow Status][npm-build] ![GitHub Actions Workflow Status][gh-codeql] ![NPM Version][npm-version] ![npm bundle size][npm-size]
+
+
+
 
 ## Contents
 
@@ -169,3 +172,9 @@ Type definitions for HTML tags.
 [ptm]: https://github.com/phothinmg
 
 [npm-build]: https://img.shields.io/github/actions/workflow/status/phothinmg/mmtreeast-html-tags/npm-publish.yml?style=for-the-badge&logo=github
+
+[gh-codeql]: https://img.shields.io/github/actions/workflow/status/phothinmg/mmtreeast-html-tags/codeql.yml?style=for-the-badge&logo=github&label=codeql
+
+[npm-version]: https://img.shields.io/npm/v/mmtreeast-html-tags?registry_uri=https%3A%2F%2Fregistry.npmjs.org%2F&style=for-the-badge&logo=npm
+
+[npm-size]: https://img.shields.io/bundlephobia/minzip/mmtreeast-html-tags?style=for-the-badge
