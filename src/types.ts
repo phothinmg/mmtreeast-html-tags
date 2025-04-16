@@ -1,6 +1,6 @@
 // Do not edit, this is generated file.
 // fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
-// last update at 4/16/2025, 10:09:58 PM GMT+6:30
+// last update at 4/17/2025, 1:00:42 AM GMT+6:30
 
 const alltags = [
 	"html",
@@ -204,11 +204,6 @@ const alltags = [
 	"strike",
 	"tt",
 	"xmp",
-	"basefont",
-	"bgsound",
-	"command",
-	"image",
-	"keygen",
 ] as const;
 
 export type HTMLTagNames = (typeof alltags)[number];

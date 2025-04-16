@@ -35,5 +35,13 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phothinmg/mmtreeast-html-tags.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phothinmg/mmtreeast-html-tags/issues"
+  },
+  "homepage": "https://github.com/phothinmg/mmtreeast-html-tags/blob/main/readme.md"
 }

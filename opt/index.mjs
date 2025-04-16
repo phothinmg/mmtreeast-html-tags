@@ -9,6 +9,8 @@ const file3 = "./src/group.ts";
 await (async function () {
   const mdn_url =
     "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements";
+  const mdn_url_void =
+    "https://developer.mozilla.org/en-US/docs/Glossary/Void_element";
   const data = await $.request(mdn_url).text();
   const loader = cheerio.load(data);
   const main = loader("#content");
@@ -42,37 +44,30 @@ await (async function () {
   Object.keys(htmlData).forEach((i) => {
     htmlData[i].elements.forEach((j) => elements.push(j));
   });
-  ["basefont", "bgsound", "command", "image", "keygen"].forEach((k) =>
-    elements.push(k)
+  // loading void elements
+  const data_void = await $.request(mdn_url_void).text();
+  const loader_void = cheerio.load(data_void);
+  const main_void = loader_void("div.section-content");
+  const void_els = [];
+  main_void.find("li").each((i, e) =>
+    void_els.push(
+      loader_void(e)
+        .text()
+        .trim()
+        .replace(/</, "")
+        .replace(/>/, "")
+        .replace(/\nDeprecated/, "")
+        .replace(/Replaced elements/, "")
+        .replace(/\s+/g, "") // whitespaces
+    )
   );
   htmlData["void_elements"] = {
-    elements: [
-      "area",
-      "base",
-      "basefont",
-      "bgsound",
-      "br",
-      "col",
-      "command",
-      "embed",
-      "frame",
-      "hr",
-      "image",
-      "img",
-      "input",
-      "keygen",
-      "link",
-      "meta",
-      "param",
-      "source",
-      "track",
-      "wbr",
-    ],
+    elements: void_els.filter((i) => i !== ""),
   };
   htmlData["all_mdn_elements"] = {
     elements: elements,
   };
-
+  groups.push("Void Elements");
   const elobj = JSON.stringify(htmlData, null, 2);
   const now = new Date().toLocaleString("en-US", { timeZoneName: "short" });
   const txt = `

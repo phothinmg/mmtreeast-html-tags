@@ -1,6 +1,6 @@
 // Do not edit, this is generated file.
 // fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
-// last update at 4/16/2025, 10:09:58 PM GMT+6:30
+// last update at 4/17/2025, 1:00:42 AM GMT+6:30
 
 import type { HTMLTagNames } from "./types";
 
@@ -264,18 +264,12 @@ export const htmlTags: HTMLTags = {
 		elements: [
 			"area",
 			"base",
-			"basefont",
-			"bgsound",
 			"br",
 			"col",
-			"command",
 			"embed",
-			"frame",
 			"hr",
-			"image",
 			"img",
 			"input",
-			"keygen",
 			"link",
 			"meta",
 			"param",
@@ -487,11 +481,6 @@ export const htmlTags: HTMLTags = {
 			"strike",
 			"tt",
 			"xmp",
-			"basefont",
-			"bgsound",
-			"command",
-			"image",
-			"keygen",
 		],
 	},
 };
