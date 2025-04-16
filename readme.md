@@ -1,5 +1,7 @@
 # mmtreeast-html-tags
 
+![GitHub Actions Workflow Status][npm-build]
+
 ## Contents
 
 - [Overview](#overview)
@@ -162,6 +164,8 @@ Type definitions for HTML tags.
 
 <!-- Definitions -->
 
-[file-license]: license
+[file-license]: LICENSE
 
 [ptm]: https://github.com/phothinmg
+
+[npm-build]: https://img.shields.io/github/actions/workflow/status/phothinmg/mmtreeast-html-tags/npm-publish.yml?style=for-the-badge&logo=github
