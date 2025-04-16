@@ -24,11 +24,14 @@
     - [Web Components](#htmltagsweb_componentselements)
     - [Obsolete and deprecated elements](#htmltagsobsolete_and_deprecated_elementselements)
     - [Void Elements](#htmltagsvoid_elementselements)
+    - [Get All Tags](#htmltagsall_mdn_elementselements)
+  - [`getTagInfo`](#gettaginfo)
+  - [`HTMLTagNames`](#htmltagnames)
 - [License](#license)
 
 ## Overview
 
-\***\*ESM Only\*\***
+**_ESM Only_**
 
 HTML tag names , fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 
@@ -137,8 +140,6 @@ See at [MDN docs glossary void_element](https://developer.mozilla.org/en-US/docs
 
 > 👉 Get all html tags from above.
 
-
-
 ### `getTagInfo`
 
 ```js
@@ -154,8 +155,6 @@ const info = getTagInfo("meta");
 ### `HTMLTagNames`
 
 Type definitions for HTML tags.
-
-
 
 ## License
 
