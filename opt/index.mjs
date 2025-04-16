@@ -25,7 +25,7 @@ await (async function () {
 
     if (/<(\w+)>/g.test(els)) {
       els = els.match(/<(\w+)>/g);
-      els = els.map((i) => i.replace(/</, "").replace(/>/, ""));
+      els = els.map((i) => i.replace(/</g, "").replace(/>/g, ""));
     }
     const values = {
       elements: els,
@@ -54,8 +54,8 @@ await (async function () {
       loader_void(e)
         .text()
         .trim()
-        .replace(/</, "")
-        .replace(/>/, "")
+        .replace(/</g, "")
+        .replace(/>/g, "")
         .replace(/\nDeprecated/, "")
         .replace(/Replaced elements/, "")
         .replace(/\s+/g, "") // whitespaces
