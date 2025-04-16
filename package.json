@@ -1,0 +1,39 @@
+{
+  "name": "mmtreeast-html-tags",
+  "version": "0.1.0",
+  "description": "HTML tags name , fetch from MDN",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run prepublish && parcel build",
+    "check": "biome check src --write",
+    "format": "biome format src --write",
+    "gen": "./opt/index.mjs",
+    "prepublish": "npm run gen && npm run check"
+  },
+  "keywords": [
+    "html",
+    "html tag names",
+    "mmtreeast"
+  ],
+  "author": "Pho Thin Mg <phothinmg@disroot.org>",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@parcel/bundler-library": "^2.14.4",
+    "@parcel/config-default": "^2.14.4",
+    "@parcel/packager-ts": "^2.14.4",
+    "@parcel/transformer-typescript-types": "^2.14.4",
+    "@types/node": "^22.14.1",
+    "cheerio": "^1.0.0",
+    "dax-sh": "^0.42.0",
+    "parcel": "^2.14.4",
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

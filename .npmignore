@@ -1,0 +1,8 @@
+node_modules
+src
+.parcelrc
+package-lock.json
+tsconfig.json
+notes
+opt
+.parcel-cache
