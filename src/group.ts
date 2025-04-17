@@ -1,6 +1,6 @@
 // Do not edit, this is generated file.
 // fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
-// last update at 4/17/2025, 1:09:44 PM GMT+6:30
+// last update at 4/17/2025, 1:26:16 PM GMT+6:30
 
 export const tagGroup: string[] = [
 	"Main root",
