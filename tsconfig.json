@@ -4,6 +4,9 @@
   "compilerOptions": {
     "isolatedModules": true,
     "experimentalDecorators": true,
-    "lib": ["ES2024"]
+    "lib": ["ES2024"],
+    "outDir": "./dist",
+    "declaration": true,
+    "target": "ESNext"
   }
 }
