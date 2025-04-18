@@ -36,8 +36,6 @@
 
 ## Overview
 
-**_ESM Only_**
-
 HTML tag names , fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 
 ## Install
@@ -56,9 +54,17 @@ yarn add mmtreeast-html-tags
 
 ## Use
 
+### ESM
+
 ```js
 import { htmlTags } from "mmtreeast-html-tags"; //tag names
 import { getTagInfo } from "mmtreeast-html-tags"; // get some tag info
+```
+
+### Commonjs
+
+```js
+const { htmlTags, getTagInfo } = require("mmtreeast-html-tags");
 ```
 
 ## API
@@ -161,6 +167,10 @@ const info = getTagInfo("meta");
 
 Type definitions for HTML tags.
 
+## Related
+
+- [`mmtreeast-html-attributes`][mmtreeast-html-attributes]
+
 ## License
 
 [MIT][file-license] © [Pho Thin Mg][ptm]
@@ -212,3 +222,5 @@ Type definitions for HTML tags.
 [obsolete_and_deprecated_elements]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements#obsolete_and_deprecated_elements
 
 [Void_element]: https://developer.mozilla.org/en-US/docs/Glossary/Void_element
+
+[mmtreeast-html-attributes]: https://github.com/phothinmg/mmtreeast-html-attributes
