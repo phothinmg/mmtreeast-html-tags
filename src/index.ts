@@ -1,39 +1,127 @@
-import { tagGroup } from "./group.js";
-import { htmlTags } from "./tags.js";
-import type { HTMLTagNames } from "./types.js";
-
-const keys = Object.keys(htmlTags);
-const getGroup = (tag: HTMLTagNames) => {
-  const keyIndex = keys.findIndex((key) =>
-    htmlTags[key].elements.includes(tag)
-  );
-  if (keyIndex === -1) return null;
-  const group = tagGroup[keyIndex] ?? "";
-  const key = keys[keyIndex];
-  const index = keyIndex;
-  return {
-    group,
-    key,
-    index,
-  };
-};
-
-const isDeprecated = (tag: HTMLTagNames) =>
-  htmlTags.obsolete_and_deprecated_elements.elements.includes(tag);
-
-const isVoidElement = (tag: HTMLTagNames) =>
-  htmlTags.void_elements.elements.includes(tag);
-const isMainRoot = (tag: HTMLTagNames) =>
-  htmlTags.main_root.elements.includes(tag);
-const isDocMetadata = (tag: HTMLTagNames) =>
-  htmlTags.document_metadata.elements.includes(tag);
-
-export const getTagInfo = (tag: HTMLTagNames) => {
-  return {
-    group: getGroup(tag)?.group,
-    deprecated: isDeprecated(tag),
-    voidElement: isVoidElement(tag),
-    mainRoot: isMainRoot(tag),
-    documentMetadata: isDocMetadata(tag),
-  };
+export const htmlTags = {
+	mainRoot: ["html"],
+	sectionRoot: ["head", "body"],
+	metadata: ["base", "link", "meta", "script", "style", "title"],
+	flow: [
+		"a",
+		"abbr",
+		"address",
+		"area",
+		"article",
+		"aside",
+		"audio",
+		"b",
+		"bdi",
+		"bdo",
+		"blockquote",
+		"body",
+		"br",
+		"button",
+		"canvas",
+		"caption",
+		"cite",
+		"code",
+		"col",
+		"colgroup",
+		"data",
+		"datalist",
+		"dd",
+		"del",
+		"details",
+		"dfn",
+		"dialog",
+		"div",
+		"dl",
+		"dt",
+		"em",
+		"embed",
+		"fieldset",
+		"figcaption",
+		"figure",
+		"footer",
+		"form",
+		"h1",
+		"header",
+		"hgroup",
+		"hr",
+		"i",
+		"iframe",
+		"img",
+		"input",
+		"ins",
+		"kbd",
+		"label",
+		"legend",
+		"li",
+		"main",
+		"map",
+		"mark",
+		"menu",
+		"meter",
+		"nav",
+		"noscript",
+		"object",
+		"ol",
+		"optgroup",
+		"option",
+		"output",
+		"p",
+		"picture",
+		"pre",
+		"progress",
+		"q",
+		"rp",
+		"rt",
+		"ruby",
+		"s",
+		"samp",
+		"search",
+		"section",
+		"select",
+		"slot",
+		"small",
+		"source",
+		"span",
+		"strong",
+		"sub",
+		"summary",
+		"sup",
+		"table",
+		"tbody",
+		"td",
+		"template",
+		"textarea",
+		"tfoot",
+		"th",
+		"thead",
+		"time",
+		"tr",
+		"track",
+		"u",
+		"ul",
+		"var",
+		"video",
+		"wbr",
+	],
+	deprecated: [
+		"acronym",
+		"big",
+		"center",
+		"dir",
+		"font",
+		"frame",
+		"frameset",
+		"marquee",
+		"nobr",
+		"noembed",
+		"noframes",
+		"param",
+		"plaintext",
+		"rb",
+		"rtc",
+		"strike",
+		"tt",
+		"xmp",
+	],
+	experimental: ["fencedframe", "selectedcontent"],
 };

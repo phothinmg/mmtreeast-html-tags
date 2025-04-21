@@ -15,18 +15,13 @@ if (!existsSync(out_dir)) {
 const mergeOpt = {
   indexFile: {
     path: "./src/index.ts",
-    lines: 3,
   },
   otherFiles: [
     {
-      path: "./src/types.ts",
+      path: "./src/type.ts",
     },
     {
-      path: "./src/group.ts",
-    },
-    {
-      path: "./src/tags.ts",
-      lines: 5,
+      path: "./src/void.ts",
     },
   ],
 };

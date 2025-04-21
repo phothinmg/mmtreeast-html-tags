@@ -2,111 +2,96 @@
 import * as cheerio from "cheerio";
 import $ from "dax-sh";
 import fs from "node:fs/promises";
-const file = "./src/tags.ts";
-const file2 = "./src/types.ts";
-const file3 = "./src/group.ts";
 
-await (async function () {
-  const mdn_url =
-    "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements";
-  const mdn_url_void =
-    "https://developer.mozilla.org/en-US/docs/Glossary/Void_element";
-  const data = await $.request(mdn_url).text();
-  const loader = cheerio.load(data);
-  const main = loader("#content");
-  const htmlData = {};
-  const groups = [];
-  main.find("section").each((index, el) => {
-    const h2 = loader(el).find("h2");
-    const tds = loader(el).find("tbody").find("tr").find("td");
-    let key = h2.text().trim();
+const url =
+  "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements";
+const all = [];
+const data = await $.request(url).text();
+const loader = cheerio.load(data);
+const main = loader("div.sidebar-body")
+  .find("ol")
+  .find("li.toggle")
+  .find("details")
+  .find("summary");
+main.each((i, e) => {
+  const mtxt = loader(e).text();
+  if (mtxt === "Elements") {
+    main
+      .siblings("ol")
+      .find("li")
+      .each((ii, ee) => {
+        all.push(loader(ee).text());
+      });
+  }
+});
+const meta = ["base", "link", "meta", "script", "style", "title"];
+/**
+ * @type {string[]}
+ */
+let allTags = all.slice(0, 127);
+/**
+ * @type {string[]}
+ */
+let flow = allTags.filter((i) => i.split("\n").length === 1);
+flow = flow.map((i) => i.replace(/</g, "").replace(/>/g, ""));
+flow = flow.filter((i) => i !== "html" && i !== "head" && !meta.includes(i));
+//
+let dep = allTags.filter(
+  (i) => i.split("\n").length > 1 && i.split("\n")[1] === "Deprecated"
+);
+dep = dep.map((i) => i.split("\n")[0]);
+dep = dep.map((i) => i.replace(/</g, "").replace(/>/g, ""));
+//
+let exp = allTags.filter(
+  (i) => i.split("\n").length > 1 && i.split("\n")[1] === "Experimental"
+);
+exp = exp.map((i) => i.split("\n")[0]);
+exp = exp.map((i) => i.replace(/</g, "").replace(/>/g, ""));
+//
 
-    let els = tds.find("a").text().trim();
+const mapObj = {};
 
-    if (/<(\w+)>/g.test(els)) {
-      els = els.match(/<(\w+)>/g);
-      els = els.map((i) => i.replace(/</g, "").replace(/>/g, ""));
-    }
-    const values = {
-      elements: els,
-    };
-    if (key !== "See also") {
-      groups.push(key);
-      key = key
-        .split(" ")
-        .map((i) => i.toLowerCase(i))
-        .join("_");
-      htmlData[key] = values;
-    }
-  });
-  let elements = [];
+mapObj["mainRoot"] = ["html"];
+mapObj["sectionRoot"] = ["head", "body"];
+mapObj["metadata"] = meta;
+mapObj["flow"] = flow;
+mapObj["deprecated"] = dep;
+mapObj["experimental"] = exp;
 
-  Object.keys(htmlData).forEach((i) => {
-    htmlData[i].elements.forEach((j) => elements.push(j));
-  });
-  // loading void elements
-  const data_void = await $.request(mdn_url_void).text();
-  const loader_void = cheerio.load(data_void);
-  const main_void = loader_void("div.section-content");
-  const void_els = [];
-  main_void.find("li").each((i, e) =>
-    void_els.push(
-      loader_void(e)
-        .text()
-        .trim()
-        .replace(/</g, "")
-        .replace(/>/g, "")
-        .replace(/\nDeprecated/, "")
-        .replace(/Replaced elements/, "")
-        .replace(/\s+/g, "") // whitespaces
-    )
-  );
-  htmlData["void_elements"] = {
-    elements: void_els.filter((i) => i !== ""),
-  };
-  htmlData["all_mdn_elements"] = {
-    elements: elements,
-  };
-  groups.push("Void Elements");
-  const elobj = JSON.stringify(htmlData, null, 2);
-  const now = new Date().toLocaleString("en-US", { timeZoneName: "short" });
-  const txt = `
-  // Do not edit, this is generated file.
-  // fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
-  // last update at ${now}
+const tx = `
+export const htmlTags = ${JSON.stringify(mapObj, null, 2)}
+`;
 
-  import type { HTMLTagNames } from "./types";
-    
-  export type HTMLTags = {
-   ${Object.keys(htmlData).map((key) => `${key}:{elements: HTMLTagNames[];}`)}
-   
-  };
+const ftype = flow.map((i) => `"${i}"`).join(" | ");
+const txt = `
+export type FlowType = ${ftype}
+`;
 
+const _void = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr",
+];
+const txv = `
+export const voidTags = ${JSON.stringify(_void, null, 2)}
+`;
 
-  export const htmlTags: HTMLTags = ${elobj};
-      `;
-
-  const txt2 = `
-  // Do not edit, this is generated file.
-  // fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
-  // last update at ${now}
-
-  const alltags = ${JSON.stringify(elements, null, 2)} as const;
-
-  export type HTMLTagNames = typeof alltags[number];
-  `;
-  const txt3 = `
-  // Do not edit, this is generated file.
-  // fetch from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
-  // last update at ${now}
-
-  export const tagGroup: string[] = ${JSON.stringify(groups, null, 2)}
-  `;
-  await fs.writeFile(`${file}`, txt);
-  await fs.writeFile(`${file2}`, txt2);
-  await fs.writeFile(`${file3}`, txt3);
-})();
-
-await $`npx biome format ${file} --write`;
-await $`npx biome format ${file2} --write`;
-await $`npx biome format ${file3} --write`;
+//
+await fs.writeFile("src/index.ts", tx);
+await fs.writeFile("src/type.ts", txt);
+await fs.writeFile("src/void.ts", txv);
+//
+await $`npx biome format src/index.ts --write`;
+await $`npx biome format src/type.ts --write`;
+await $`npx biome format src/void.ts --write`;
